@@ -40,6 +40,7 @@ namespace ProEventos.API.Controllers
 
         public EventoController()
         {
+            
         }
 
         //Metodos HTTP
