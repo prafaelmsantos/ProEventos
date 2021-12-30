@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ProEventos.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProEventos.API
 {
@@ -18,6 +20,7 @@ namespace ProEventos.API
     {
         public Startup(IConfiguration configuration)
         {
+            //O configuration permite acessar appsettings.json
             Configuration = configuration;
         }
 
@@ -26,6 +29,13 @@ namespace ProEventos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //instalar o Data Context
+            //Fazer a referencia da base de dados
+            services.AddDbContext<DataContext>(
+                //context => context.UseMySQL(Configuration.GetConnectionString("Default"))
+                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+
+            );
 
             services.AddControllers(); //Indica que estou a trabalhar com a arquitetura MVC com Views Controllers. Permite chamar o meu controller
             services.AddSwaggerGen(c =>
