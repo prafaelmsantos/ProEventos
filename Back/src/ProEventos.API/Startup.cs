@@ -38,6 +38,8 @@ namespace ProEventos.API
             );
 
             services.AddControllers(); //Indica que estou a trabalhar com a arquitetura MVC com Views Controllers. Permite chamar o meu controller
+            //Rafael
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
@@ -60,6 +62,9 @@ namespace ProEventos.API
             app.UseRouting(); //Indica que vou trabalhar por rotas
 
             app.UseAuthorization();
+
+            //Rafael - Dado qualquer header da requisição por http vinda de qualquer metodo (get, post, delete..) e vindos de qualquer origem
+            app.UseCors(x =>x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             //E vou retornar determinados endpoints de acordo com a conbfiguração destas rotas dentro do meu controller
 

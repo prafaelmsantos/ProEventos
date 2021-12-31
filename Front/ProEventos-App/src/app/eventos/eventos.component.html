@@ -1,0 +1,14 @@
+<h1>Eventos de Components</h1>
+
+<!-- Imprimir Db Angular estatica
+<p><b>Tema1:</b> {{eventos[0].Tema}}</p>
+<p><b>Local1:</b> {{eventos[0].Local}}</p>
+-->
+<!-- Primeira diretiva - Ngfor-->
+<div *ngFor="let evento of eventos">
+  <hr>
+  <p><b>Tema:</b> {{evento.tema}}</p>
+  <p><b>Local:</b> {{evento.local}}</p>
+
+</div>
+

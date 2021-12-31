@@ -7,7 +7,7 @@ using ProEventos.API.Models;
 
 namespace ProEventos.API.Data
 {
-    //Para fazer a atabela de contexto de Eventos
+    //Para fazer a tabela de contexto de Eventos
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options){}
