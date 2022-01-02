@@ -8,7 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
-  public eventos: any;
+  public eventos: any = [];
+  public eventosFiltrados: any=[];
+  larguraImg: number = 120;
+  margemImg: number = 2;
+  exibirImg: boolean = true;
+  private _filtroLista: string ='';
+
+  public get filtroLista(): string{
+    return this._filtroLista;
+  }
+  public set filtroLista(value: string){
+    this._filtroLista= value;
+    this.eventosFiltrados=this.filtroLista ? this.filtrarEventos(this.filtroLista):this.eventos;
+  }
+
+  filtrarEventos(filtrarPor: string):any{
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      (evento : {tema: string; local: string})=> evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
+      evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    )
+  }
 
   constructor(private http: HttpClient) {
 
@@ -20,15 +41,24 @@ export class EventosComponent implements OnInit {
     this.getEventos();
   }
 
+  alterarEstadoImg(){
+    this.exibirImg = !this.exibirImg;
+  }
+
+
   public getEventos(): void {
     //Vou fazer um get do protocolo http neste URL
     this.http.get('https://localhost:5001/api/eventos').subscribe(
-      response => this.eventos = response,
+      response => {
+        this.eventos = response;
+        this.eventosFiltrados = this.eventos;
+      },
       error => console.log(console.error)
 
     );
 
 
+/*
     this.eventos= [
       {
         Tema: 'Angular',
@@ -40,9 +70,9 @@ export class EventosComponent implements OnInit {
       },
       {
         Tema: 'Curso Completo',
-        Local: 'Mira '
+        Local: 'Mira (Db Angular estatica)'
       }
-    ]
+    ]*/
 
   }
 
