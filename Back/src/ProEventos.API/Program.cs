@@ -13,7 +13,6 @@ namespace ProEventos.API
     {
         public static void Main(string[] args)
         {
-            //Rafael - Vai chamar o metodo debaixo
             CreateHostBuilder(args).Build().Run();
         }
 
