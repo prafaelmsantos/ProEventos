@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
+import { Evento } from '../models/Evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'app-eventos',
@@ -8,12 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
-  public eventos: any = [];
-  public eventosFiltrados: any=[];
-  larguraImg: number = 120;
-  margemImg: number = 2;
-  exibirImg: boolean = true;
-  private _filtroLista: string ='';
+  public eventos: Evento[] = [];
+  public eventosFiltrados: Evento[]=[];
+
+  public larguraImg = 120;
+  public margemImg = 2;
+  public exibirImg = true;
+  public _filtroLista='';
 
   public get filtroLista(): string{
     return this._filtroLista;
@@ -23,7 +26,7 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados=this.filtroLista ? this.filtrarEventos(this.filtroLista):this.eventos;
   }
 
-  filtrarEventos(filtrarPor: string):any{
+  public filtrarEventos(filtrarPor: string):Evento[]{
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
       (evento : {tema: string; local: string})=> evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
@@ -31,31 +34,32 @@ export class EventosComponent implements OnInit {
     )
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private eventoService: EventoService) {
 
   }
 
   //ngOnInit é um metodo que vai ser
   //chamado antes de ser inicializado a aplicação. Antes do HTML ser interpretado
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getEventos();
   }
 
-  alterarEstadoImg(){
+  public alterarEstadoImg(): void{
     this.exibirImg = !this.exibirImg;
   }
 
 
   public getEventos(): void {
+
     //Vou fazer um get do protocolo http neste URL
-    this.http.get('https://localhost:5001/api/eventos').subscribe(
-      response => {
-        this.eventos = response;
+    this.eventoService.getEventos().subscribe({
+      next: (_eventos: Evento[]) => {
+        this.eventos = _eventos;
         this.eventosFiltrados = this.eventos;
       },
-      error => console.log(console.error)
+      error: (error: any) => console.log(console.error),
 
-    );
+    });
 
 
 /*
