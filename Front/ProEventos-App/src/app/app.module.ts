@@ -10,7 +10,7 @@ import { PalestrantesComponent } from './components/palestrantes/palestrantes.co
 import { NavComponent } from './shared/nav/nav.component';
 import { ContactosComponent } from './components/contactos/contactos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +31,9 @@ import { EventoService } from './services/evento.service';
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { EventoDetalheComponent } from './components/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 
 
@@ -49,6 +52,9 @@ import { EventoListaComponent } from './components/eventos/evento-lista/evento-l
     EventoDetalheComponent,
     EventoListaComponent,
     DateTimeFormatPipe,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent,
 
    ],
   imports: [
