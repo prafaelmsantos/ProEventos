@@ -30,3 +30,5 @@
     "strictTemplates": true
   }
 }
+
+/* Rafael - strictInjectionParameters" --> o angular avisa se existe algum problema de injeção"*/

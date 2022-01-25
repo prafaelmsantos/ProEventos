@@ -1,5 +1,5 @@
 <app-titulo [titulo]="'Perfil'"></app-titulo>
-
+<div class="card rounded shadow-sm">
 <form>
 	<div class="row p-3">
 		<div class="col-lg-3 pt-1">
@@ -38,11 +38,11 @@
 			</div>
 		</div>
 		<div class="col-lg-9">
-			<div class="form-row">
+			<div class="row">
 				<div class="form-group col-12">
 					<h3 class="border-bottom">Detalhe Perfil</h3>
 				</div>
-				<div class="form-group col">
+				<div class="form-group col mt-2">
 					<label>Título</label>
 					<select class="form-control">
 						<option value=""></option>
@@ -56,27 +56,27 @@
 						<option value="Senhorita">Pós Doc</option>
 					</select>
 				</div>
-				<div class="form-group col-sm-5">
+				<div class="form-group col-sm-5 mt-2">
 					<label>Primeiro Nome</label>
 					<input type="text" class="form-control"/>
 
 				</div>
-				<div class="form-group col-sm-5">
+				<div class="form-group col-sm-5 mt-2">
 					<label>Último nome</label>
 					<input type="text" class="form-control"/>
 
 				</div>
 			</div>
-			<div class="form-row">
-				<div class="form-group col-sm-5">
+			<div class="row">
+				<div class="form-group col-sm-5 mt-2">
 					<label>E-mail</label>
 					<input type="text" class="form-control" />
 				</div>
-				<div class="form-group col-sm-4">
+				<div class="form-group col-sm-4 mt-2">
 					<label>Telefone</label>
 					<input type="text" class="form-control" />
 				</div>
-				<div class="form-group col-sm">
+				<div class="form-group col-sm mt-2">
 					<label>Função</label>
 					<select class="form-control">
 						<option value=""></option>
@@ -84,7 +84,7 @@
 						<option value="Palestrante">Palestrante</option>
 					</select>
 				</div>
-				<form-group class="col-12">
+				<form-group class="col-12 mt-2">
 					<label>Descrição</label>
 					<input type="text" class="form-control" />
 				</form-group>
@@ -94,11 +94,11 @@
 				<p>Caso mude de senha, preencha os campos abaixo:</p>
 			</div>
 			<div class="form-row">
-				<div class="form-group col-sm">
+				<div class="form-group col-sm mt-2">
 					<label>Senha</label>
 					<input type="password" class="form-control" />
 				</div>
-				<div class="form-group col-sm">
+				<div class="form-group col-sm mt-2">
 					<label>Confirmar Senha</label>
 					<input type="password" class="form-control" />
 				</div>
@@ -106,14 +106,15 @@
 		</div>
 	</div>
 	<div class="card-footer">
-		<div class="d-flex">
+		<div class="d-flex justify-content-between">
 			<button class="btn btn-outline-secondary mr-auto border">
 				Cancelar Alteração
 			</button>
 			<button class="btn btn-success">
-				<span class="spinner-border spinner-border-sm mr-1"></span>
+				<!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
 				Salvar Alteração
 			</button>
 		</div>
 	</div>
 </form>
+</div>
