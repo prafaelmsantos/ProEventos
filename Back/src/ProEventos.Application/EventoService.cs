@@ -53,6 +53,7 @@ namespace ProEventos.Application
 
                 model.Id = evento.Id;
 
+                //O DTO vai ser mapeado para o meu evento
                 _mapper.Map(model, evento);
 
                 _geralPersist.Update<Evento>(evento);
