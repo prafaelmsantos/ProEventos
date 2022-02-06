@@ -103,7 +103,7 @@ export class EventoDetalheComponent implements OnInit {
   }
 
 
-/*
+
   public guardarAlteracao(): void {
     this.spinner.show();
     if (this.form.valid) {
@@ -124,6 +124,6 @@ export class EventoDetalheComponent implements OnInit {
       );
     }
   }
-*/
+
 
 }

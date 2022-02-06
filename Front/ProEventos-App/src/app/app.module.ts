@@ -5,6 +5,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -67,6 +68,7 @@ defineLocale('pt-br', ptBrLocale);
     BsDropdownModule.forRoot(),
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+    CarouselModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
