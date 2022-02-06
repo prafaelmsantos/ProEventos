@@ -1,6 +1,9 @@
 <app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-address-card'"></app-titulo>
 <div class="card rounded shadow-sm">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <p>Form value: {{form.value | json}}</p>
+      <p>Form status: {{form.status | json}}</p>
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
         <div class="card mb-3">
@@ -38,7 +41,7 @@
         </div>
       </div>
       <div class="col-lg-9">
-        <div class="form-row">
+        <div class="row mt-2">
           <div class="form-group col-12">
             <h3 class="border-bottom">Detalhe Perfil</h3>
           </div>
@@ -77,7 +80,7 @@
           </div>
         </div>
       </div>
-      <div class="form-row">
+      <div class="row mt-2">
         <div class="form-group col-sm-5">
           <label>E-mail</label>
           <input type="text" formControlName="email" class="form-control"
@@ -107,7 +110,7 @@
           <div *ngIf="f.funcao.errors.required">função é obrigatório é obrigatório</div>
         </div>
       </div>
-      <form-group class="col-12">
+      <form-group class="col-12 mt-2">
         <label>Descrição</label>
         <input type="text" formControlName="descricao" class="form-control"
         [ngClass]="{ 'is-invalid': f.descricao.errors && f.descricao.touched }" />
@@ -120,23 +123,23 @@
       <h3 class="pt-3 border-bottom">Mudar Senha</h3>
       <p>Caso mude de senha, preencha os campos abaixo:</p>
     </div>
-    <div class="form-row">
+    <div class="row">
       <div class="form-group col-sm">
         <label>Senha</label>
-        <input type="password" formControlName="senha" class="form-control"
-        [ngClass]="{ 'is-invalid': f.senha.errors && f.senha.touched }" />
-        <div *ngIf="f.senha.errors && f.senha.touched" class="invalid-feedback">
-          <div *ngIf="f.senha.errors.required">Senha é obrigatório</div>
-          <div *ngIf="f.senha.errors.minlength">Senha precisa ter pelo menos 6 caracteres</div>
+        <input type="password" formControlName="password" class="form-control"
+        [ngClass]="{ 'is-invalid': f.password.errors && f.password.touched }" />
+        <div *ngIf="f.password.errors && f.password.touched" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password é obrigatório</div>
+          <div *ngIf="f.password.errors.minlength">Password precisa ter pelo menos 6 caracteres</div>
         </div>
       </div>
       <div class="form-group col-sm">
-        <label>Confirmar Senha</label>
-        <input type="password" formControlName="confirmeSenha" class="form-control"
-        [ngClass]="{ 'is-invalid': f.confirmeSenha.errors && f.confirmeSenha.touched }" />
-        <div *ngIf="f.confirmeSenha.errors && f.confirmeSenha.touched" class="invalid-feedback">
-          <div *ngIf="f.confirmeSenha.errors.required">Confirmação de senha é Obrigatório</div>
-          <div *ngIf="f.confirmeSenha.errors.mustMatch">Repedir a senha é obrigatório.</div>
+        <label>Confirmar Password</label>
+        <input type="password" formControlName="confirmePassword" class="form-control"
+        [ngClass]="{ 'is-invalid': f.confirmePassword.errors && f.confirmePassword.touched }" />
+        <div *ngIf="f.confirmePassword.errors && f.confirmePassword.touched" class="invalid-feedback">
+          <div *ngIf="f.confirmePassword.errors.required">Confirmação da Password é Obrigatório</div>
+          <div *ngIf="f.confirmePassword.errors.mustMatch">Ass Passwords não são iguais!</div>
         </div>
       </div>
     </div>

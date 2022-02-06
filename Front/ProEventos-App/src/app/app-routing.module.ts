@@ -13,7 +13,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 
-import { ContatosComponent } from './components/contatos/contatos.component';
+import { ContactosComponent } from './components/contactos/contactos.component';
 
 const routes: Routes = [
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
   },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'palestrantes', component: PalestrantesComponent },
-  { path: 'contatos', component: ContatosComponent },
+  { path: 'contactos', component: ContactosComponent },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 ];

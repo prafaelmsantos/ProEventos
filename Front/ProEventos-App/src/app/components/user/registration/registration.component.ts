@@ -1,42 +1,48 @@
-import { ValidatorField } from './../../../helpers/ValidatorField';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorField } from 'src/app/helpers/ValidatorField';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
 
-  form!: FormGroup;
+  form: FormGroup = this.formBuilder.group({});
+  // form!: FormGroup;
 
-  constructor(public fb: FormBuilder) { }
+  get f(): any {
+    return this.form.controls;
 
-  get f(): any { return this.form.controls; }
+  }
 
-  ngOnInit(): void {
+  constructor(private formBuilder:FormBuilder) { }
+
+  ngOnInit() {
     this.validation();
   }
 
-  private validation(): void {
+  public validation():void {
 
     const formOptions: AbstractControlOptions = {
-      validators: ValidatorField.MustMatch('senha', 'confirmeSenha')
+      validators: ValidatorField.MustMatch('password','confirmePassword')
     };
 
-    this.form = this.fb.group({
-      primeiroNome: ['', Validators.required],
-      ultimoNome: ['', Validators.required],
-      email: ['',
-        [Validators.required, Validators.email]
-      ],
-      userName: ['', Validators.required],
-      senha: ['',
-        [Validators.required, Validators.minLength(6)]
-      ],
-      confirmeSenha: ['', Validators.required],
-    }, formOptions);
+    this.form = this.formBuilder.group(
+      {
+        primeiroNome: ['',[Validators.required]],
+        ultimoNome: ['',Validators.required],
+        email: ['',[Validators.required, Validators.email]],
+        username: ['',[Validators.required]],
+        password: ['',[Validators.required, Validators.minLength(6)]],
+        confirmePassword: ['',[Validators.required]],
+      }, formOptions
+    );
+  }
+
+  public resetForm(): void{
+    this.form.reset();
   }
 
 }

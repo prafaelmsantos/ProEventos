@@ -1,4 +1,3 @@
-
 <div class="card rounded shadow-sm p-3">
 
   <div class="d-flex">
@@ -28,9 +27,9 @@
       <tr>
         <th class="d-none d-md-table-cell">
           <button type="button" class="btn btn-outline-light btn-sm"
-          (click)="alterarImagem()">
-          <i class="{{!exibirImagem ? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
-          {{!exibirImagem ? 'exibir' : 'ocultar'}}
+          (click)="alterarEstadoImg()">
+          <i class="{{!exibirImg ? 'fa fa-eye' : 'fa fa-eye-slash'}}"></i>
+          {{!exibirImg ? 'exibir' : 'ocultar'}}
         </button>
       </th>
       <th>#</th>
@@ -45,11 +44,11 @@
   <tbody *ngIf="eventos && eventos.length">
     <tr *ngFor="let evento of eventosFiltrados" (click)="detalheEvento(evento.id)" style="cursor: pointer;">
       <td class="d-none d-md-table-cell">
-        <img [collapse]="!exibirImagem"
+        <img [collapse]="!exibirImg"
         [isAnimated]="true"
         src="/assets/{{evento.imagemURL}}"
-        [style.width.px]="larguraImagem"
-        [style.margin.px]="margemImagem"
+        [style.width.px]="larguraImg"
+        [style.margin.px]="margemImg"
         >
       </td>
       <td>{{evento.id}}</td>
@@ -57,7 +56,7 @@
       <td class="d-none d-md-table-cell">{{evento.local}}</td>
       <td>{{evento.dataEvento | DateFormatPipe}}</td>
       <td class="d-none d-md-table-cell">{{evento.qtdPessoas}}</td>
-      <td class="d-none d-md-table-cell">{{evento.lotes[0].nome | uppercase}}</td>
+      <td class="d-none d-md-table-cell">{{evento.lotes[0]?.nome | uppercase}}</td>
       <td>
         <button type="button" class="btn btn-danger btn-lg" tooltip="Excluir" (click)="openModal(template)">
           <i class="fa fa-trash"></i>
@@ -85,3 +84,37 @@
     <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
   </div>
 </ng-template>
+
+
+
+<!-- Imprimir Db Angular estatica
+<p><b>Tema1:</b> {{eventos[0].Tema}}</p>
+<p><b>Local1:</b> {{eventos[0].Local}}</p>
+-->
+
+<!-- Primeira diretiva estrutural - Ngfor (bind e interpolação)
+<div *ngFor="let evento of eventos"> ngfor uma diretiva. evento e eventos são binds
+  <hr>
+  <p><b>Tema:</b> {{evento.tema}}</p> //é uma interpolação
+  <p><b>Local:</b> {{evento.local}}</p>
+
+</div>
+-->
+<!--
+Nota:
+
+Diretivas estruturais
+*ngif
+*ngFor
+...
+
+Binding e Interpolações
+{{eventos[0].imagemURL}}
+{{eventos[0].imagemURL +1}} concatenação
+
+{{eventos | json}} mostra a lista toda
+{{eventos[0] | json}} mostra o primeiro da lista
+
+
+-->
+

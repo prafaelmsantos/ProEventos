@@ -1,3 +1,4 @@
+
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 export class ValidatorField {
@@ -7,7 +8,7 @@ export class ValidatorField {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
 
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
         return null;
       }
 

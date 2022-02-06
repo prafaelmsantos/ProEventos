@@ -1,29 +1,34 @@
-import { ValidatorField } from './../../../helpers/ValidatorField';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorField } from 'src/app/helpers/ValidatorField';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss']
+  styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
 
-  form!: FormGroup;
+  form: FormGroup = this.formBuilder.group({});
+  // form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  get f(): any {
+    return this.form.controls;
 
-  ngOnInit(): void {
+  }
+
+  constructor(private formBuilder:FormBuilder) { }
+
+  ngOnInit() {
     this.validation();
   }
 
   private validation(): void {
     const formOptions: AbstractControlOptions = {
-      validators: ValidatorField.MustMatch('senha', 'confirmeSenha')
+      validators: ValidatorField.MustMatch('password', 'confirmePassword')
     };
 
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       titulo: ['', Validators.required],
       primeiroNome: ['', Validators.required],
       ultimoNome: ['', Validators.required],
@@ -31,13 +36,10 @@ export class PerfilComponent implements OnInit {
       telefone: ['', [Validators.required]],
       descricao: ['', Validators.required],
       funcao: ['', Validators.required],
-      senha: ['', [Validators.minLength(6), Validators.nullValidator]],
-      confirmeSenha: ['', Validators.nullValidator]
+      password: ['', [Validators.minLength(6), Validators.nullValidator]],
+      confirmePassword: ['', Validators.nullValidator]
     }, formOptions);
   }
-
-  // Conveniente para pegar um FormField apenas com a letra F
-  get f(): any { return this.form.controls; }
 
   onSubmit(): void {
 
@@ -51,4 +53,5 @@ export class PerfilComponent implements OnInit {
     event.preventDefault();
     this.form.reset();
   }
+
 }
