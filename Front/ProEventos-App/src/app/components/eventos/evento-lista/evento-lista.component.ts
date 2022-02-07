@@ -18,6 +18,7 @@ export class EventoListaComponent implements OnInit {
 
    public eventos: Evento[] = [];
    public eventosFiltrados: Evento[]=[];
+   public eventoId = 0;
 
    public larguraImg = 120;
    public margemImg = 2;
@@ -54,7 +55,7 @@ export class EventoListaComponent implements OnInit {
    //chamado antes de ser inicializado a aplicação. Antes do HTML ser interpretado
    public ngOnInit(): void {
      this.spinner.show();
-     this.getEventos();
+     this.carregarEventos();
    }
 
    public alterarEstadoImg(): void{
@@ -62,7 +63,7 @@ export class EventoListaComponent implements OnInit {
    }
 
 
-   public getEventos(): void {
+   public carregarEventos(): void {
 
      //Vou fazer um get do protocolo http neste URL
      this.eventoService.getEventos().subscribe({
@@ -81,14 +82,39 @@ export class EventoListaComponent implements OnInit {
    }
 
      //Modal
-     openModal(template: TemplateRef<any>):void {
+     openModal(event:any, template: TemplateRef<any>, eventoId: number):void {
+       event.stopPropagation();
+       this.eventoId = eventoId;
        this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
      }
 
      confirm(): void {
        this.modalRef?.hide();
-       this.toastr.success('O Evento foi apagado com sucesso!', 'Apagado');
-     }
+       this.spinner.show();
+
+       this.eventoService.deleteEvento(this.eventoId).subscribe(
+        (result: any) => {
+          if (result.message === 'Apagado'){
+          console.log(result); // Retorna o "Apagado do controler da API". Nesta caso aparece na consola: mesagem: "Apagado". Não é necessario este if. Para tal passar o any do result para string
+
+          this.toastr.success('O Evento foi apagado com sucesso.', 'Apagado!');
+          this.spinner.hide();
+          this.carregarEventos();
+          }
+
+
+        },
+        (error: any) => {
+          console.error(error);
+          this.toastr.error(`Erro ao tentar apagar o evento ${this.eventoId}`, 'Erro!');
+          this.spinner.hide();
+        },
+        () => this.spinner.hide(),
+
+
+      );
+
+    }
 
      decline(): void {
        this.modalRef?.hide();

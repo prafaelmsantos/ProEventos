@@ -113,11 +113,16 @@ namespace ProEventos.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            
+
             try
             {
-                return await _eventoService.DeleteEvento(id) ? 
-                       Ok("Apagado!") : 
-                       BadRequest("Evento não apagado");
+                var evento = await _eventoService.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                return await _eventoService.DeleteEvento(id) 
+                    ? Ok( new {message = "Apagado"}) 
+                    : throw new Exception("Evento não apagado");
             }
             catch (Exception ex)
             {

@@ -19,7 +19,7 @@ export class EventoDetalheComponent implements OnInit {
   //Atribuo um objeto vazio mas que é do tipo Evento
   evento = {} as Evento;
 
-  estadoGuardar = 'post';
+  estado = 'post';
 
   get f(): any {
     return this.form.controls;
@@ -29,7 +29,7 @@ export class EventoDetalheComponent implements OnInit {
     return {
       isAnimated: true,
       adaptivePosition: true,
-      dateInputFormat: 'DD/MM/YYYY hh:mm a',
+      dateInputFormat: 'DD/MM/YYYY HH:mm',
       containerClass: 'theme-default',
       showWeekNumbers: false
     };
@@ -50,7 +50,10 @@ export class EventoDetalheComponent implements OnInit {
      const eventoIdParam = this.router.snapshot.paramMap.get('id');
 
      if (eventoIdParam !== null){
-       this.eventoService.getEventoById(+eventoIdParam).subscribe({
+      this.spinner.show();
+
+      this.estado ='put'; // Carregamos os eventos quando estamos a editar
+      this.eventoService.getEventoById(+eventoIdParam).subscribe({
          next: (evento: Evento) =>{
 
           //Eu pego cada uma das propriedades dentro do meu objecto evento que eu recebi do meu getEventobyId
@@ -102,17 +105,49 @@ export class EventoDetalheComponent implements OnInit {
     return {'is-invalid': campoForm.errors && campoForm.touched };
   }
 
-
   public guardarAlteracao(): void {
     this.spinner.show();
     if (this.form.valid) {
 
-      this.evento = (this.estadoGuardar === 'post')
+      if(this.estado === 'post'){
+        this.evento =  {...this.form.value}; //Todos os campos do formulario
+
+        this.eventoService.postEvento(this.evento).subscribe({
+          next: () => this.toastr.success('Evento guardado com Sucesso!', 'Sucesso'),
+          error: (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toastr.error('Erro ao guardar o evento', 'Erro');
+          },
+          complete: () => this.spinner.hide()
+        }).add(() => this.spinner.hide());
+
+      }else{
+        this.evento =  {id: this.evento.id , ...this.form.value}; //Todos os campos do formulario
+
+        this.eventoService.putEvento(this.evento.id,this.evento).subscribe({
+          next: () => this.toastr.success('Evento guardado com Sucesso!', 'Sucesso'),
+          error: (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toastr.error('Erro ao tentar guardar o evento', 'Erro');
+          },
+          complete: () => this.spinner.hide()
+        }).add(() => this.spinner.hide());
+      }
+    }
+  }
+
+  /*
+  public guardarAlteracao(): void {
+    this.spinner.show();
+    if (this.form.valid) {
+
+      this.evento = (this.estado === 'post')
                 ? {...this.form.value}
                 : {id: this.evento.id, ...this.form.value};
 
-
-      this.eventoService[this.estadoGuardar](this.evento).subscribe(
+      this.eventoService[this.estado+'Evento'](this.evento).subscribe(
         () => this.toastr.success('Evento salvo com Sucesso!', 'Sucesso'),
         (error: any) => {
           console.error(error);
@@ -123,6 +158,5 @@ export class EventoDetalheComponent implements OnInit {
       );
     }
   }
-
-
+  */
 }
