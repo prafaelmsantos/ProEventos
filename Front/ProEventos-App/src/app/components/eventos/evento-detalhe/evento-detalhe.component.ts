@@ -120,7 +120,7 @@ export class EventoDetalheComponent implements OnInit {
             this.toastr.error('Erro ao guardar o evento', 'Erro');
           },
           complete: () => this.spinner.hide()
-        }).add(() => this.spinner.hide());
+        });
 
       }else{
         this.evento =  {id: this.evento.id , ...this.form.value}; //Todos os campos do formulario

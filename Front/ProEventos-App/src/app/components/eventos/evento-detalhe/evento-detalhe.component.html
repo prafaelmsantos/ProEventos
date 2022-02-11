@@ -62,7 +62,7 @@
         </div>
         <div class="form-group col-md-6 mt-2">
           <label>Email</label>
-          <input type="text" class="form-control" [ngClass]="cssValidator(f.email)"  formControlName="email" placeholder="E-mail">
+          <input type="text" class="form-control" [ngClass]="cssValidator(f.email)" formControlName="email" placeholder="E-mail">
           <div *ngIf="f.email.errors?.required" class="invalid-feedback">
             Email é obrigatorio!
           </div>
@@ -72,7 +72,7 @@
         </div>
         <div class="form-group col-md-6 mt-2">
           <label>Imagem</label>
-          <input type="text" class="form-control" [ngClass]="cssValidator(f.imagemURL)"  formControlName="imagemURL" placeholder="Imagem">
+          <input type="text" class="form-control" [ngClass]="cssValidator(f.imagemURL)" formControlName="imagemURL" placeholder="Imagem">
           <div *ngIf="f.imagemURL.errors?.required" class="invalid-feedback">
             Imagem é obrigatoria!
           </div>
