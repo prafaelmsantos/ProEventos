@@ -72,7 +72,7 @@ export class EventoDetalheComponent implements OnInit {
    public carregarEvento(): void {
      this.eventoId = +this.ActivatedRouter.snapshot.paramMap.get('id');
 
-     if (this.eventoId !== null || this.eventoId === 0){
+     if (this.eventoId !== null && this.eventoId !== 0){
       this.spinner.show();
 
       this.estado = 'put'; // Carregamos os eventos quando estamos a editar
@@ -83,8 +83,12 @@ export class EventoDetalheComponent implements OnInit {
            this.evento =  {...evento};
            this.form.patchValue(this.evento);
            if (this.evento.imagemURL !== '') {
-          //this.imagemURL = environment.apiURL + 'resources/images/' + this.evento.imagemURL;
-          }
+              this.imagemURL = environment.apiURL + 'resources/images/' + this.evento.imagemURL;
+            }
+          /* this.lotes.forEach((lote) => {
+            this.lotes.push(this.criarsLote(lote));
+          }); */
+
            this.carregarLotes();
          },
          error: (error: any) =>{
@@ -135,7 +139,7 @@ export class EventoDetalheComponent implements OnInit {
         qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
         telefone: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        imagemURL: ['', Validators.required],
+        imagemURL: [''],
 
         lotes: this.formBuilder.array([])
 
@@ -156,6 +160,11 @@ export class EventoDetalheComponent implements OnInit {
       dataInicio: [lote.dataInicio],
       dataFim: [lote.dataFim]
     });
+  }
+
+  public retornaTituloLote(nome: string): string{
+    return nome === null || nome === ''
+                ? 'Nome do lote' : nome;
   }
 
   public resetForm(): void{
@@ -213,10 +222,10 @@ export class EventoDetalheComponent implements OnInit {
         .postLote(this.eventoId, this.form.value.lotes)
         .subscribe(
           () => {
-            this.toastr.success('Lotes salvos com Sucesso!', 'Sucesso!');
+            this.toastr.success('Lotes guardados com Sucesso!', 'Sucesso!');
           },
           (error: any) => {
-            this.toastr.error('Erro ao tentar salvar lotes.', 'Erro');
+            this.toastr.error('Erro ao tentar guardar lotes.', 'Erro');
             console.error(error);
           }
         )
@@ -240,12 +249,12 @@ export class EventoDetalheComponent implements OnInit {
       .deleteLote(this.eventoId, this.loteAtual.id)
       .subscribe(
         () => {
-          this.toastr.success('Lote deletado com sucesso', 'Sucesso');
+          this.toastr.success('Lote apagado com sucesso', 'Sucesso');
           this.lotes.removeAt(this.loteAtual.indice);
         },
         (error: any) => {
           this.toastr.error(
-            `Erro ao tentar deletar o Lote ${this.loteAtual.id}`,
+            `Erro ao tentar apagar o Lote ${this.loteAtual.id}`,
             'Erro'
           );
           console.error(error);
@@ -268,7 +277,7 @@ export class EventoDetalheComponent implements OnInit {
 
     this.uploadImagem();
   }
-
+ // Atualizar no BackEnd
   uploadImagem(): void {
     this.spinner.show();
     this.eventoService.postUpload(this.eventoId, this.file).subscribe(
