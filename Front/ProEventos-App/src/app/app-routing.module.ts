@@ -9,11 +9,11 @@ import { EventoDetalheComponent } from './components/eventos/evento-detalhe/even
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 
 import { UserComponent } from './components/user/user.component';
-import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 
 import { ContactosComponent } from './components/contactos/contactos.component';
+import { LoginComponent } from './components/user/login/login.component';
 
 const routes: Routes = [
   {

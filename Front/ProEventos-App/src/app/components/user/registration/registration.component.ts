@@ -1,6 +1,10 @@
+import { ValidatorField } from './../../../helpers/ValidatorField';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorField } from 'src/app/helpers/ValidatorField';
+import { User } from '../../../models/identity/User';
+import { AccountService } from '../../../services/account.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
@@ -9,40 +13,46 @@ import { ValidatorField } from 'src/app/helpers/ValidatorField';
 })
 export class RegistrationComponent implements OnInit {
 
-  form: FormGroup = this.formBuilder.group({});
-  // form!: FormGroup;
+  user = {} as User;
+  form!: FormGroup;
 
-  get f(): any {
-    return this.form.controls;
+  constructor(private fb: FormBuilder,
+              private accountService: AccountService,
+              private router: Router,
+              private toaster: ToastrService) { }
 
-  }
+  get f(): any { return this.form.controls; }
 
-  constructor(private formBuilder:FormBuilder) { }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.validation();
   }
 
-  public validation():void {
+  private validation(): void {
 
     const formOptions: AbstractControlOptions = {
-      validators: ValidatorField.MustMatch('password','confirmePassword')
+      validators: ValidatorField.MustMatch('password', 'confirmePassword')
     };
 
-    this.form = this.formBuilder.group(
-      {
-        primeiroNome: ['',[Validators.required]],
-        ultimoNome: ['',Validators.required],
-        email: ['',[Validators.required, Validators.email]],
-        username: ['',[Validators.required]],
-        password: ['',[Validators.required, Validators.minLength(6)]],
-        confirmePassword: ['',[Validators.required]],
-      }, formOptions
-    );
+    this.form = this.fb.group({
+      primeiroNome: ['', Validators.required],
+      ultimoNome: ['', Validators.required],
+      email: ['',
+        [Validators.required, Validators.email]
+      ],
+      userName: ['', Validators.required],
+      password: ['',
+        [Validators.required, Validators.minLength(6)]
+      ],
+      confirmePassword: ['', Validators.required],
+    }, formOptions);
   }
 
-  public resetForm(): void{
-    this.form.reset();
+  register(): void {
+    this.user = { ...this.form.value };
+    this.accountService.register(this.user).subscribe(
+      () => this.router.navigateByUrl('/dashboard'),
+      (error: any) => this.toaster.error(error.error)
+    )
   }
 
 }
