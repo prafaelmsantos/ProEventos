@@ -99,11 +99,17 @@ namespace ProEventos.Application
                 if(user == null){
                     return null;
                 }
-                _mapper.Map(userUpdateDto, user);
-                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                var result = await _userManager.ResetPasswordAsync(user, token, userUpdateDto.Password);
+                userUpdateDto.Id = user.Id;
+
+                _mapper.Map(userUpdateDto, user);
+
+                if (userUpdateDto.Password != null) {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    await _userManager.ResetPasswordAsync(user, token, userUpdateDto.Password);
+                }
                 _userPersist.Update<User>(user);
+                
                 if( await _userPersist.SaveChangesAsync()){
                     var userRetorno = await _userPersist.GetUserByUserNameAsync(user.UserName);
                     return _mapper.Map<UserUpdateDto>(userRetorno);

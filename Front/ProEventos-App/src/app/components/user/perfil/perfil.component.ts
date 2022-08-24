@@ -27,10 +27,10 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.validation();
-    this.carregarUsuario();
+    this.carregarUtilizador();
   }
 
-  private carregarUsuario(): void {
+  private carregarUtilizador(): void {
     this.spinner.show();
     this.accountService
       .getUser()
@@ -39,11 +39,11 @@ export class PerfilComponent implements OnInit {
           console.log(userRetorno);
           this.userUpdate = userRetorno;
           this.form.patchValue(this.userUpdate);
-          this.toaster.success('Usuário Carregado', 'Sucesso');
+          this.toaster.success('Utilizador Carregado!', 'Sucesso!');
         },
         (error) => {
           console.error(error);
-          this.toaster.error('Usuário não Carregado', 'Erro');
+          this.toaster.error('Utilizador não Carregado!', 'Erro!');
           this.router.navigate(['/dashboard']);
         }
       )
@@ -65,7 +65,7 @@ export class PerfilComponent implements OnInit {
         phoneNumber: ['', [Validators.required]],
         descricao: ['', Validators.required],
         funcao: ['NaoInformado', Validators.required],
-        password: ['', [Validators.minLength(4), Validators.nullValidator]],
+        password: ['', [Validators.minLength(6), Validators.nullValidator]],
         confirmePassword: ['', Validators.nullValidator],
       },
       formOptions
@@ -78,17 +78,17 @@ export class PerfilComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.atualizarUsuario();
+    this.atualizarUtilizador();
   }
 
-  public atualizarUsuario() {
+  public atualizarUtilizador() {
     this.userUpdate = { ...this.form.value };
     this.spinner.show();
 
     this.accountService
       .updateUser(this.userUpdate)
       .subscribe(
-        () => this.toaster.success('Usuário atualizado!', 'Sucesso'),
+        () => this.toaster.success('Utilizador atualizado!', 'Sucesso!'),
         (error) => {
           this.toaster.error(error.error);
           console.error(error);

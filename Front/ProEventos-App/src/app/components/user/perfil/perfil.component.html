@@ -1,4 +1,6 @@
 <app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-address-card'"></app-titulo>
+<p>Form value: {{form.value | json}}</p>
+    <p>Form status: {{form.status | json}}</p>
 <div class="card rounded shadow-sm">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row p-3">
@@ -82,7 +84,7 @@
           [ngClass]="{ 'is-invalid': f.email.errors && f.email.touched }" />
           <div *ngIf="f.email.errors && f.email.touched" class="invalid-feedback">
             <div *ngIf="f.email.errors.required">e-mail é obrigatório</div>
-            <div *ngIf="f.email.errors.email">e-mail precisa ser um endereço válido.</div>
+            <div *ngIf="f.email.errors.email">Email precisa ter um endereço válido.</div>
           </div>
         </div>
         <div class="form-group col-sm-4">
@@ -115,12 +117,12 @@
       </div>
     </div>
     <div>
-      <h3 class="pt-3 border-bottom">Mudar Senha</h3>
-      <p>Caso mude de senha, preencha os campos abaixo:</p>
+      <h3 class="pt-3 border-bottom">Mudar Password</h3>
+      <p>Caso mude de password, preencha os campos abaixo:</p>
     </div>
     <div class="form-row">
       <div class="form-group col-sm">
-        <label>Senha</label>
+        <label>Password</label>
         <input type="password" formControlName="password" class="form-control"
         [ngClass]="{ 'is-invalid': f.password.errors && f.password.touched }" />
         <div *ngIf="f.password.errors && f.password.touched" class="invalid-feedback">
@@ -129,11 +131,11 @@
         </div>
       </div>
       <div class="form-group col-sm">
-        <label>Confirmar Senha</label>
+        <label>Confirmar Password</label>
         <input type="password" formControlName="confirmePassword" class="form-control"
         [ngClass]="{ 'is-invalid': f.confirmePassword.errors && f.confirmePassword.touched }" />
         <div *ngIf="f.confirmePassword.errors && f.confirmePassword.touched" class="invalid-feedback">
-          <div *ngIf="f.confirmePassword.errors.required">Confirmação de senha é Obrigatório</div>
+          <div *ngIf="f.confirmePassword.errors.required">Confirmação de password é Obrigatório</div>
           <div *ngIf="f.confirmePassword.errors.mustMatch">Repedir a senha é obrigatório.</div>
         </div>
       </div>
@@ -143,10 +145,10 @@
 <div class="card-footer">
   <div class="d-flex">
     <button (click)="resetForm($event)" class="btn btn-outline-secondary mr-auto border">
-      Cancelar Alteração
+      Cancelar
     </button>
     <button class="btn btn-success" type="submit">
-      Salvar Alteração
+      Atualizar
     </button>
   </div>
 </div>
