@@ -5,6 +5,7 @@ export class Pagination {
   totalPages: number;
 }
 
+//T permite paginar qualquer coisa evento/palestrante...
 export class PaginatedResult<T> {
   result: T;
   pagination: Pagination;

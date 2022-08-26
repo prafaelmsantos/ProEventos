@@ -17,11 +17,8 @@ namespace ProEventos.API.Helpers
 
             //Ele cria do evento para o DTO e do DTO para o Evento
             CreateMap<Evento, EventoDto>().ReverseMap();
-
             CreateMap<Palestrante, PalestranteDto>().ReverseMap();
-
             CreateMap<Lote, LoteDto>().ReverseMap();
-
             CreateMap<RedeSocial, RedeSocialDto>().ReverseMap();
 
             CreateMap<User, UserDto>().ReverseMap();
